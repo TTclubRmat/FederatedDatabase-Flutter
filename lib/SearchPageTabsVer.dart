@@ -358,9 +358,17 @@ class _DataQueryPageState extends State<DataQueryPage> {
     }
   }
 
+  // 校验输入框内容
   bool _validateInputs() {
     if (xController.text.isEmpty || yController.text.isEmpty) {
       _showErrorDialog('请输入x和y坐标');
+      return false;
+    }
+    if (int.tryParse(xController.text)! >= 0 ||
+        int.tryParse(yController.text)! >= 0 ||
+        int.tryParse(xController.text)! <= 200 ||
+        int.tryParse(yController.text)! <= 200) {
+      _showErrorDialog('x和y坐标必须在0至200之间');
       return false;
     }
     if (int.tryParse(xController.text) == null ||
@@ -441,9 +449,17 @@ class _DataQueryPageState extends State<DataQueryPage> {
               enabled: queryType == 'Nearest',
             ),
             const SizedBox(height: 16),
-            _buildDropdownField('是否加密', encrypt, ['不加密', '加密'], (value) {
-              setState(() => encrypt = value!);
-            }),
+            _buildDropdownField(
+              '是否加密',
+              encrypt,
+              queryType == 'Nearest' ? ['不加密', '加密'] : ['不加密'],
+              (value) {
+                if (queryType == 'Nearest') {
+                  setState(() => encrypt = value!);
+                }
+              },
+              enabled: queryType == 'Nearest',
+            ),
             const SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.end, // 将按钮放在行的右侧

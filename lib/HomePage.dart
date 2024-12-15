@@ -31,7 +31,7 @@ class _HomePageState extends State<HomePage> {
             _currentIndex = index;
           });
         },
-        selectedItemColor: Colors.purple,
+        selectedItemColor: Colors.brown,
         // 选中项的颜色
         unselectedItemColor: Colors.grey,
         // 未选中项的颜色
