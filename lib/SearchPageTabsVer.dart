@@ -47,7 +47,7 @@ class _SearchPageStateTab extends State<SearchPageTabsVer>
           Expanded(
             child: TabBarView(
               controller: _tabController,
-              children:  [
+              children: [
                 DataQueryPage(
                   title: '数据查询',
                   tabController: _tabController,
@@ -159,11 +159,13 @@ String encrypt = '不加密';
 List<CheckResult> results = [];
 
 class DataQueryPage extends StatefulWidget {
-  const DataQueryPage({super.key, required this.title, required this.tabController});
+  const DataQueryPage(
+      {super.key, required this.title, required this.tabController});
 
   final String title;
 
   final TabController tabController;
+
   // final TabController tabController;
 
   @override
@@ -219,21 +221,24 @@ class _DataQueryPageState extends State<DataQueryPage> {
       // 启动定时器以更新进度条
       timer = Timer.periodic(const Duration(milliseconds: 5), (t) {
         final elapsed = DateTime.now().difference(startTime).inMilliseconds;
-        double progress;
+        double progress = progressNotifier.value;
 
         if (isEncrypt) {
           if (elapsed < 15000) {
             // 前15秒增长到85%
             progress = (elapsed / 15000) * 0.85;
-          } else if (elapsed < 30000) {
+          } else if (elapsed < 25000) {
             // 15-25秒增长到95%
             progress = 0.85 + ((elapsed - 15000) / 10000) * 0.10;
+            print("progress1: $progress");
           } else {
-            // 30秒后增长到99%
-            progress = 0.95 + ((elapsed - 25000) / 10000) * 0.04;
-            if (progress > 0.99) {
+            // 25秒后增长到99%
+            if (progress >= 0.99) {
               progress = 0.99;
               t.cancel(); // 停止定时器
+            } else {
+              progress = 0.95 + ((elapsed - 25000) / 10000) * 0.04;
+              print("progress2: $progress");
             }
           }
         } else {
@@ -248,14 +253,12 @@ class _DataQueryPageState extends State<DataQueryPage> {
             progress = 0.95 + ((elapsed - 3000) / 7000) * 0.04;
           } else {
             progress = 0.99;
-            t.cancel(); // 停止定时器
           }
         }
 
         // 确保进度不超过设定的最大值
-        if (progress > maxProgress) {
-          progress = maxProgress;
-          t.cancel(); // 停止定时器
+        if (progress >= 0.99) {
+          progress = 0.99;
         }
 
         progressNotifier.value = progress.clamp(0.0, maxProgress);
@@ -341,7 +344,6 @@ class _DataQueryPageState extends State<DataQueryPage> {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('查询成功')),
       );
-
     } catch (e) {
       // 出现错误时，取消定时器并关闭进度对话框
       timer?.cancel();
@@ -466,17 +468,16 @@ class QueryResultsTab extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SingleChildScrollView(
-        padding: const EdgeInsets.fromLTRB(32,16,32,42),
+        padding: const EdgeInsets.fromLTRB(32, 16, 32, 42),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: 4),
             ...results.map((result) => Padding(
-              padding: const EdgeInsets.only(bottom: 4), // 增加底部间距，可以根据需要调整
-              child: _buildResultItem(result),
-            )),
+                  padding: const EdgeInsets.only(bottom: 4), // 增加底部间距，可以根据需要调整
+                  child: _buildResultItem(result),
+                )),
           ],
-
         ),
       ),
     );
