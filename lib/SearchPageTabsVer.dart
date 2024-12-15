@@ -364,13 +364,14 @@ class _DataQueryPageState extends State<DataQueryPage> {
       _showErrorDialog('请输入x和y坐标');
       return false;
     }
-    if (int.tryParse(xController.text)! >= 0 ||
-        int.tryParse(yController.text)! >= 0 ||
-        int.tryParse(xController.text)! <= 200 ||
-        int.tryParse(yController.text)! <= 200) {
+    int? x = int.tryParse(xController.text);
+    int? y = int.tryParse(yController.text);
+
+    if (x == null || y == null || x < 0 || x > 200 || y < 0 || y > 200) {
       _showErrorDialog('x和y坐标必须在0至200之间');
       return false;
     }
+
     if (int.tryParse(xController.text) == null ||
         int.tryParse(yController.text) == null) {
       _showErrorDialog('x和y坐标必须为整数');
