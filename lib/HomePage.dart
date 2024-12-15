@@ -1,5 +1,5 @@
 import 'package:federateddatabaseflutter/DataBasePage.dart';
-import 'package:federateddatabaseflutter/SearchPage.dart';
+import 'package:federateddatabaseflutter/SearchPageTabsVer.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -14,7 +14,7 @@ class _HomePageState extends State<HomePage> {
 
   final List<Widget> _pages = [
     const DataBasePage(title: '数据库'),
-    const SearchPage(title: '数据查询'),
+    const SearchPageTabsVer(title: '数据查询'),
   ];
 
   @override

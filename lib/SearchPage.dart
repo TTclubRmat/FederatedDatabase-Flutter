@@ -75,13 +75,22 @@ class _SearchPageState extends State<SearchPage> {
               setState(() => encrypt = value!);
             }),
             const SizedBox(height: 16),
-            Align(
-              alignment: Alignment.centerRight,
-              child: ElevatedButton(
-                onPressed: _submitQuery,
-                child: const Text('提交查询'),
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end, // 将按钮放在行的右侧
+              children: [
+                // ElevatedButton(
+                //   onPressed: _plotChart, // 另一个按钮的功能
+                //   child: const Text('图表展示'),
+                // ),
+                // const SizedBox(width: 8), // 添加间距
+                ElevatedButton(
+                  onPressed: _submitQuery,
+                  child: const Text('提交查询'),
+                ),
+
+              ],
             ),
+
             const Divider(height: 32),
             const Text('查询结果',
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
@@ -149,7 +158,7 @@ class _SearchPageState extends State<SearchPage> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(30.0),
       ),
-      elevation: 1.0,
+      elevation: 0.5,
       margin: const EdgeInsets.symmetric(vertical: 4),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(14, 8, 14, 8),
