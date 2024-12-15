@@ -23,7 +23,19 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text('查询'),
       ),
-      body: _pages[_currentIndex],
+      body: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 300),
+        transitionBuilder: (Widget child, Animation<double> animation) {
+          return FadeTransition(
+            opacity: animation,
+            child: child,
+          );
+        },
+        child: KeyedSubtree(
+          key: ValueKey<int>(_currentIndex),
+          child: _pages[_currentIndex],
+        ),
+      ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (index) {
@@ -32,9 +44,7 @@ class _HomePageState extends State<HomePage> {
           });
         },
         selectedItemColor: Colors.brown,
-        // 选中项的颜色
         unselectedItemColor: Colors.grey,
-        // 未选中项的颜色
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.data_array),
