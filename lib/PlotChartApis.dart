@@ -173,26 +173,6 @@ class PlotPainter extends CustomPainter {
       );
       textPainter.layout();
 
-      // Rect backgroundRect;
-      // if (alignRight) {
-      //   backgroundRect = Rect.fromLTWH(
-      //     offset.dx - textPainter.width - padding * 2,
-      //     offset.dy - textPainter.height / 2 - padding,
-      //     textPainter.width + padding * 2,
-      //     textPainter.height + padding * 2,
-      //   );
-      // } else {
-      //   backgroundRect = Rect.fromLTWH(
-      //     offset.dx - textPainter.width / 2 - padding,
-      //     offset.dy - padding,
-      //     textPainter.width + padding * 2,
-      //     textPainter.height + padding * 2,
-      //   );
-      // }
-
-      // 绘制背景
-      // canvas.drawRect(backgroundRect, Paint()..color = backgroundColor);
-
       // 绘制文本
       if (alignRight) {
         textPainter.paint(canvas, Offset(offset.dx - textPainter.width - padding, offset.dy - textPainter.height / 2));
@@ -277,12 +257,6 @@ class PlotPainter extends CustomPainter {
 
 
   }
-  // Offset _getPointPosition(int x, int y) {
-  //   return Offset(
-  //     x * size.width / 200,
-  //     size.height - y * size.height / 200,
-  //   );
-  // }
 
   // 坐标转换函数
   Offset _getPointPosition(double x, double y, double minX, double minY, double scaleX, double scaleY) {

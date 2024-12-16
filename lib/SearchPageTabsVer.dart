@@ -161,12 +161,8 @@ List<CheckResult> results = [];
 class DataQueryPage extends StatefulWidget {
   const DataQueryPage(
       {super.key, required this.title, required this.tabController});
-
   final String title;
-
   final TabController tabController;
-
-  // final TabController tabController;
 
   @override
   State<DataQueryPage> createState() => _DataQueryPageState();
@@ -412,8 +408,6 @@ class _DataQueryPageState extends State<DataQueryPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // const Text('数据查询',
-            //     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
             const SizedBox(height: 16),
             _buildDropdownField('查询类型', queryType, ['Nearest', 'AntiNearest'],
                 (value) {
@@ -512,8 +506,6 @@ class DataChartTab extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // const Text('数据图表',
-            //     style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
             Padding(
               padding: const EdgeInsets.fromLTRB(35, 16, 35, 16),
               // 左、上、右、下各16像素的边距
