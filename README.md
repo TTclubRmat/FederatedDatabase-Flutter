@@ -2,6 +2,14 @@
 
 FederateDatabase-Flutter 是 FederateDatabase 的前端项目，专注于提供一个基于 Flutter 构建的跨平台应用。有关后端的详细信息，请参阅 [FederateDatabase 后端项目](https://github.com/7fenfen/FederatedDataBase)。本文档将简要介绍该 Flutter 应用的设计和实现。
 
+## 开发人员
+
+张恒鑫（7fen）、吴卓道（TIANT）。
+
+## 前端使用的外部库
+
+仅flutter及dart基本库，包括material、grpc、math。
+
 ## Flutter 使用感受
 
 本应用是我首次使用 Flutter 构建的正式项目，过程中充分感受到 Flutter 在以下方面的优势：
