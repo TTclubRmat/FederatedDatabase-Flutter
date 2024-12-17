@@ -1,5 +1,6 @@
 import 'package:federateddatabaseflutter/HomePage.dart';
 import 'package:flutter/material.dart';
+import 'package:process_run/process_run.dart';
 
 // protoc文件编译命令
 // protoc --dart_out=grpc:lib/generated -Iprotos protos/federation.proto
@@ -143,15 +144,40 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
                                   ),
                                   ElevatedButton(
                                     onPressed: () {
-                                      _showDialog(context, '开发人员', '张恒鑫');
+                                      _showDialog(context, '开发人员', '张恒鑫、吴卓道');
                                     },
                                     child: const Text('开发人员'),
                                   ),
                                   ElevatedButton(
                                     onPressed: () {
-                                      _showDialog(context, '阿巴阿巴', '没想好写啥');
+                                      showDialog(
+                                        context: context,
+                                        builder: (BuildContext context) {
+                                          return AlertDialog(
+                                            title: const Text('Github'),
+                                            content: const Text('项目已开源到Github，实现细节请参考README.md。'),
+                                            actions: <Widget>[
+                                              TextButton(
+                                                child: const Text('前端地址'),
+                                                onPressed: () {
+                                                  _launchURL('https://github.com/TTclubRmat/FederatedDatabase-Flutter');
+                                                  Navigator.of(context).pop(); // 关闭对话框
+
+                                                },
+                                              ),
+                                              TextButton(
+                                                child: const Text('后端地址'),
+                                                onPressed: () {
+                                                  _launchURL('https://github.com/7fenfen/FederatedDataBase');
+                                                  Navigator.of(context).pop(); // 关闭对话框
+                                                },
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      );
                                     },
-                                    child: const Text('阿巴阿巴'),
+                                    child: const Text('开源地址'),
                                   ),
                                 ],
                               ),
@@ -186,8 +212,8 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
                     ),
                     const SizedBox(height: 20),
                     const Text(
-                      '- Developed by Zhang Hengxin',
-                      style: TextStyle(fontSize: 16),
+                      '- Developed by Zhang Hengxin AND Wu Zhuodao',
+                      style: TextStyle(fontSize: 14),
                     ),
                   ],
                 ),
@@ -228,6 +254,17 @@ class _MainPageState extends State<MainPage> with SingleTickerProviderStateMixin
         ],
       ),
     );
+  }
+
+  // Future<void> _launchURL(String url) async {
+  //   final Uri uri = Uri.parse(url);
+  //   if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+  //     throw Exception('Could not launch $url');
+  //   }
+  // }
+  Future<void> _launchURL(String url) async {
+    var shell = Shell();
+    await shell.run('start $url');
   }
 
   void _showDialog(BuildContext context, String title, String content) {
