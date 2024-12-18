@@ -233,8 +233,8 @@ class _DataQueryPageState extends State<DataQueryPage> {
               progress = 0.99;
               t.cancel(); // 停止定时器
             } else {
-              progress = 0.95 + ((elapsed - 25000) / 10000) * 0.04;
-              print("progress2: $progress");
+              progress = 0.95 + ((elapsed - 25000) / 15000) * 0.04;
+              // print("progress2: $progress");
             }
           }
         } else {
@@ -273,7 +273,7 @@ class _DataQueryPageState extends State<DataQueryPage> {
       );
 
       final stub = FederationServiceClient(channel,
-          options: CallOptions(timeout: const Duration(seconds: 60)));
+          options: CallOptions(timeout: const Duration(seconds: 120)));
 
       int queryNumInt = 20;
       if (queryType == 'Nearest') {
